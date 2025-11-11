@@ -337,15 +337,17 @@
     }
 
     .footer-note {
-      margin-top: 10px;
-      font-size: 9px;
+      margin-top: 14px;
+      font-size: 11px;        /* tăng size chữ */
+      line-height: 1.6;       /* dãn dòng cho dễ đọc */
       text-align: center;
-      color: #999;
-    }
-    .footer-note span {
-      color: #ff4b8a;
+      color: #ff4b8a;         /* cho đồng tông hồng nhẹ */
       font-weight: 500;
-    }
+}
+    .footer-note span {
+      color: #ff2f75;
+      font-weight: 600;
+}
 
     @media (max-width: 400px) {
       .card { padding: 20px 12px 12px; }
@@ -353,7 +355,8 @@
       .hero-subtitle { font-size: 12px; }
       .names { font-size: 11px; }
       .photo-item span { font-size: 9.5px; }
-    }
+      .footer-note { font-size: 10.5px; }  /* vẫn to hơn bản cũ */
+}
   </style>
 </head>
 <body>
