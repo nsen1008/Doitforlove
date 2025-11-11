@@ -45,9 +45,9 @@
       inset: -2px;
       border-radius: 30px;
       background: linear-gradient(120deg,
-      rgba(255,75,138,0.18),
-      rgba(255,255,255,0),
-      rgba(255,126,179,0.22));
+        rgba(255,75,138,0.18),
+        rgba(255,255,255,0),
+        rgba(255,126,179,0.22));
       opacity: 0;
       pointer-events: none;
       animation: glowBorder 3.2s ease-in-out infinite;
@@ -107,12 +107,37 @@
     .names {
       text-align: center;
       font-size: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       color: #444;
     }
     .names span {
       color: #ff4b8a;
       font-weight: 600;
+    }
+
+    /* Nút nhạc */
+    .music-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      font-size: 10px;
+      border-radius: 999px;
+      border: 1px solid #ff9fba;
+      background: #fff6fa;
+      color: #ff4b8a;
+      cursor: pointer;
+      margin: 0 auto 10px;
+      box-shadow: 0 2px 6px rgba(255,140,180,0.25);
+      transition: all 0.2s ease;
+    }
+    .music-btn:hover {
+      background: #ffe6f1;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(255,140,180,0.35);
+    }
+    .music-btn span.icon {
+      font-size: 13px;
     }
 
     .hero-photo {
@@ -149,7 +174,7 @@
       background: rgba(0,0,0,0.35);
       color: #fff;
       backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     @keyframes gentlePop {
@@ -245,11 +270,11 @@
       color: #ff7eb3;
     }
 
-    /* Gallery: phóng to ảnh + chữ */
+    /* Gallery: lưới đều, ảnh cùng size, caption giữ nguyên */
     .gallery-wrapper {
-      margin-top: 8px;
-      padding: 8px 6px 6px;
-      border-radius: 14px;
+      margin-top: 10px;
+      padding: 10px 8px 8px;
+      border-radius: 16px;
       background: #fff9fc;
       border: 1px solid rgba(255, 195, 217, 0.9);
       display: none;
@@ -259,60 +284,60 @@
       font-size: 11px;
       font-weight: 600;
       color: #ff4b8a;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
     .photo-row {
-      display: flex;
-      gap: 7px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: thin;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 480px) {
+      .photo-row {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .photo-item {
-      min-width: 130px;   /* to hơn */
-      max-width: 170px;   /* to hơn */
-      border-radius: 12px;
+      width: 100%;
+      border-radius: 14px;
       overflow: hidden;
       border: 1px solid #ffd1e4;
-      position: relative;
-      flex-shrink: 0;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
       background: #fff;
+      box-shadow: 0 2px 6px rgba(255,140,180,0.28);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
     }
 
     .photo-item img {
       width: 100%;
-      height: 120px;      /* cao hơn để rõ mặt */
+      height: 190px;              /* Cùng chiều cao cho tất cả ảnh */
       object-fit: cover;
       display: block;
     }
 
     .photo-item span {
-      position: absolute;
-      bottom: 3px;
-      left: 4px;
-      right: 4px;
-      font-size: 9px;     /* tăng size chữ */
-      padding: 2px 4px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.55);
-      color: #fff;
+      flex: 0 0 auto;
+      padding: 6px 6px 8px;
+      font-size: 10px;
+      line-height: 1.4;
+      color: #ff4b8a;
       text-align: center;
-      line-height: 1.3;
+      background: #fff;
     }
 
     .photo-item:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(255, 140, 180, 0.55);
+      box-shadow: 0 6px 14px rgba(255, 140, 180, 0.5);
     }
 
     .footer-note {
-      margin-top: 9px;
+      margin-top: 10px;
       font-size: 9px;
       text-align: center;
       color: #999;
@@ -327,6 +352,7 @@
       .hero-title { font-size: 22px; }
       .hero-subtitle { font-size: 12px; }
       .names { font-size: 11px; }
+      .photo-item span { font-size: 9.5px; }
     }
   </style>
 </head>
@@ -343,7 +369,11 @@
       <small>(Ba năm, và tất cả những điều đẹp nhất vẫn đang chờ phía trước 🤍)</small>
     </div>
 
-    <!-- Ảnh chính: nhớ để images/... chứ không phải /images/... -->
+    <!-- Audio: I Love You 3000 -->
+    <audio id="bgm" src="music/iloveu3000.mp3" preload="auto" autoplay loop></audio>
+    <div style="text-align:center; margin-bottom:6px;">
+    </div>
+
     <div class="hero-photo">
       <img src="images/landautiengap.jpg" alt="Our moment">
       <div class="hero-photo-label">Our 3 years together ✨</div>
@@ -396,7 +426,7 @@
       <div class="photo-row">
         <div class="photo-item">
           <img src="images/landautiengap.jpg" alt="Memory 1">
-          <span>Lần đầu tiên chúng mình gặp nhau</span>
+          <span>Lần đầu tiên chúng mình gặp nhau nhau</span>
         </div>
         <div class="photo-item">
           <img src="images/anni1month.jpg" alt="Memory 2">
@@ -464,7 +494,7 @@
         </div>
         <div class="photo-item">
           <img src="images/thiepgiangsinh.jpg" alt="Memory 18">
-          <span>Mọi thứ em tặng anh đều giữ cả, thiệp giáng sinh em tặng</span>
+          <span>Mọi thứ anh đều giữ cả, thiệp giáng sinh em tặng</span>
         </div>
         <div class="photo-item">
           <img src="images/noteemtang.jpg" alt="Memory 19">
@@ -484,18 +514,19 @@
 </div>
 
 <script>
+  // Typewriter subtitle
   const text = "Kỷ niệm 3 năm của tụi mình — cảm ơn em vì đã ở đây, và vì đã chọn anh. ✨";
   const typeEl = document.getElementById("typewriter");
   let i = 0;
-  function typeWriter() {
+  (function typeWriter() {
     if (i <= text.length) {
       typeEl.textContent = text.slice(0, i);
       i++;
       setTimeout(typeWriter, 40);
     }
-  }
-  typeWriter();
+  })();
 
+  // Toggle love message
   const toggleMessageBtn = document.getElementById("toggleMessage");
   const loveMessage = document.getElementById("loveMessage");
   toggleMessageBtn.addEventListener("click", () => {
@@ -505,6 +536,7 @@
       : "💖 Nhấn để đọc điều anh muốn nói với em";
   });
 
+  // Toggle timeline
   const toggleTimelineBtn = document.getElementById("toggleTimeline");
   const timeline = document.getElementById("timeline");
   toggleTimelineBtn.addEventListener("click", () => {
@@ -515,6 +547,7 @@
       : "📸 Đóng lại (giữ trong tim)";
   });
 
+  // Toggle gallery
   const toggleGalleryBtn = document.getElementById("toggleGallery");
   const gallery = document.getElementById("gallery");
   toggleGalleryBtn.addEventListener("click", () => {
@@ -526,6 +559,38 @@
         : "💞 Đóng lại (ảnh này anh giữ cho riêng mình)";
   });
 
+  // Music control
+  const bgm = document.getElementById("bgm");
+  const musicToggle = document.getElementById("musicToggle");
+  const musicLabel = document.getElementById("musicLabel");
+
+  function updateMusicLabel() {
+    if (bgm.paused) {
+      musicLabel.textContent = "Bật nhạc: I Love You 3000";
+    } else {
+      musicLabel.textContent = "Đang phát: I Love You 3000";
+    }
+  }
+
+  musicToggle.addEventListener("click", () => {
+    if (bgm.paused) {
+      bgm.play().catch(() => {});
+    } else {
+      bgm.pause();
+    }
+    updateMusicLabel();
+  });
+
+  // Nếu trình duyệt chặn autoplay: click đầu tiên bất kỳ trên trang sẽ cố bật nhạc
+  document.addEventListener("click", function onFirstClick() {
+    if (bgm.paused) {
+      bgm.play().catch(() => {});
+    }
+    updateMusicLabel();
+    document.removeEventListener("click", onFirstClick);
+  });
+
+  // Hiệu ứng trái tim bay
   function spawnHeart() {
     const heart = document.createElement("div");
     heart.className = "floating-heart";
@@ -536,8 +601,6 @@
     setTimeout(() => { heart.remove(); }, 6000);
   }
   setInterval(spawnHeart, 900);
-
-  // Có thể thêm <audio> vào trong .card nếu muốn nhạc nền (autoplay loop)
 </script>
 </body>
 </html>
